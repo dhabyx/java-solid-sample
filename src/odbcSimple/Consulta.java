@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  * clase de prueba para consultas
  * @author Dhaby Xiloj <dhabyx@gmail.com>
