@@ -4,18 +4,16 @@
  */
 package odbcSimple;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Dhaby Xiloj <dhabyx@gmail.com>
  */
 public class Libro {
-    private String isbn;
-    private String nombre;
-    private String categoria;
+    protected String isbn;
+    protected String nombre;
+    protected String categoria;
 
     /**
      *
@@ -76,17 +74,11 @@ public class Libro {
         this.nombre = nombre;
         this.categoria = categoria;
     }
-
-    /**
-     *  Busca todas las categorías distintas y devuelve un Resultset, 
-     * (no es la manera mas óptima de hacerlo)
-     * @return ResultSet 
-     */
-    public static ResultSet buscarTodasLasCategorias() {
-        String consultaSQL = "select distinct(categoria) from Libro";
-        DataBaseHelper helper = new DataBaseHelper();
-        ResultSet rs = helper.seleccionarRegistros(consultaSQL);
-        return rs;
+    
+    public Libro() {
+        this.isbn=null;
+        this.nombre=null;
+        this.categoria=null;
     }
 
     /**
@@ -98,29 +90,29 @@ public class Libro {
         DataBaseHelper helper = new DataBaseHelper();
         helper.modificarRegistro(consultaSQL);
     }
+   
+    /**
+     * Busca todas las categorías distintas y devuelve un Resultset, (no es la
+     * manera mas óptima de hacerlo)
+     *
+     * @return ResultSet
+     */
+    public static List<String> buscarTodasLasCategorias() {
+        String consultaSQL = "select distinct(categoria) as categoria from Libros";
+        DataBaseHelper<String> helper = new DataBaseHelper<>();
+        List<String> listaDeCategorias = helper.seleccionarRegistros(consultaSQL, String.class);
+        return listaDeCategorias;
+    }
 
+     
     /**
      * Devuelve un ResultSet con todas las filas
      * @return Resultset
      */
-    public static ArrayList<Libro> buscarTodos() {
+    public static List<Libro> buscarTodos() {
         String consultaSQL = "select isbn,nombre,categoria from Libro";
-        DataBaseHelper helper = new DataBaseHelper();
-        ResultSet rs = helper.seleccionarRegistros(consultaSQL);
-        ArrayList<Libro> listaDeLibros= new ArrayList<>();
-        try {
-
-            while (rs.next()) {
-                listaDeLibros.add(new Libro(
-                        rs.getString("isbn"),
-                        rs.getString("nombre"),
-                        rs.getString("categoria")
-                        ));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al leer el ResultSet: "+ex.getMessage());
-        }
+        DataBaseHelper<Libro> helper = new DataBaseHelper<>();
+        List<Libro> listaDeLibros= helper.seleccionarRegistros(consultaSQL, Libro.class);
         return listaDeLibros;
     }
-    
 }

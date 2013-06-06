@@ -7,6 +7,7 @@ package odbcSimple;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * clase de prueba para consultas
@@ -29,7 +30,7 @@ public class Consulta {
      * Busca información de la tabla Libro
      */
     public void buscar() {        
-        ArrayList<Libro> listaDeLibros = null;
+        List<Libro> listaDeLibros = null;
         listaDeLibros = Libro.buscarTodos();
         for (Libro libro:listaDeLibros) {
             System.out.println(libro.getIsbn());
