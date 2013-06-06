@@ -6,6 +6,7 @@ package odbcSimple;
 
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  * clase de prueba para consultas
@@ -20,25 +21,21 @@ public class Consulta {
      * @param String categoria
      */
     public void insertar(String isbn, String nombre, String categoria) {
-        Libro.insertar("asdf123", "Titulo1", "Historia");
+        Libro libro = new Libro("asdf1234a","Titulo2","Ciencias");
+        libro.insertar();
     }
 
     /**
      * Busca información de la tabla Libro
      */
-    public void buscar() {
-        ResultSet rs = null;
-        rs = Libro.buscarTodos();
-        try {
-
-            while (rs.next()) {
-                System.out.println(rs.getString("isbn"));
-                System.out.println(rs.getString("nombre"));
-                System.out.println(rs.getString("categoria"));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error al leer el ResultSet: "+ex.getMessage());
+    public void buscar() {        
+        ArrayList<Libro> listaDeLibros = null;
+        listaDeLibros = Libro.buscarTodos();
+        for (Libro libro:listaDeLibros) {
+            System.out.println(libro.getIsbn());
+            System.out.println(libro.getNombre());
+            System.out.println(libro.getCategoria());
+            System.out.println("----");
         }
-
     }
 }
