@@ -24,6 +24,7 @@ public class Consulta {
     public void insertar(String isbn, String nombre, String categoria) {
         Libro libro = new Libro("asdf1234a","Titulo2","Ciencias");
         libro.insertar();
+        
     }
 
     /**
